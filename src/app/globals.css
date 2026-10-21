@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #f6f3ee;
+  --surface: #fffdf9;
+  --foreground: #2f3a36;
+  --muted: #6f7c76;
+  --border: #e4ddd2;
+  --accent: #5b8a72;
+  --accent-soft: #e3eee7;
+  --user-bubble: #5b8a72;
+  --user-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #161b19;
+    --surface: #1e2522;
+    --foreground: #e6ebe8;
+    --muted: #93a19a;
+    --border: #2e3833;
+    --accent: #7fb397;
+    --accent-soft: #24332b;
+    --user-bubble: #3f6b55;
+    --user-text: #f2f7f4;
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-user-bubble: var(--user-bubble);
+  --color-user-text: var(--user-text);
+  --font-sans: var(--font-nunito);
+  --font-serif: var(--font-fraunces);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nunito), system-ui, sans-serif;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(0.85); opacity: 0.6; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+@keyframes dot {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: dot 1.4s infinite;
 }

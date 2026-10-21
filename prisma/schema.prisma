@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Sin login: cada navegador recibe un id anónimo (cookie) que agrupa sus conversaciones.
+model Conversation {
+  id        String    @id @default(cuid())
+  clientId  String
+  title     String    @default("Nueva conversación")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+
+  @@index([clientId, updatedAt])
+}
+
+enum Role {
+  user
+  assistant
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           Role
+  content        String
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+}
